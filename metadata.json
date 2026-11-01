@@ -1,0 +1,10 @@
+{
+  "name": "Remix Remix Remix KrishiRakshak AI",
+  "description": "AI-assisted agricultural flood preparedness, geospatial flood mapping, and crop recovery platform for Indian farmers.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

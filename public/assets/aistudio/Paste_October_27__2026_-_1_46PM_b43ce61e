@@ -1,0 +1,770 @@
+# MASTER PROJECT PROMPT — KRISHIRAKSHAK AI
+
+## 1. Your Role
+
+Act as a senior full-stack web developer, geospatial engineer, AI engineer, UI/UX designer, database architect, and agricultural technology specialist.
+
+Build a complete, responsive, farmer-friendly website named **KrishiRakshak AI**.
+
+The website must be functional, maintainable, secure, and suitable for a university project or hackathon demonstration. Do not create a native mobile application or desktop application. Build a website that runs in a browser.
+
+**Project slogan:** Detect the Flood. Protect the Crop. Reduce the Loss.
+
+## 2. Project Vision
+
+KrishiRakshak AI is an AI-assisted agricultural flood preparedness and recovery platform designed to help Indian farmers:
+
+1. Prepare for floods before they arrive.
+2. Receive timely, relevant flood and weather warnings.
+3. Understand what to do during flooding without risking their lives.
+4. Identify areas potentially affected by observed floodwater.
+5. Assess visible crop symptoms after a flood.
+6. Receive practical crop recovery guidance.
+7. Access information in their preferred Indian language.
+8. Enter farm measurements using familiar regional land units.
+
+The system must focus on actionable information rather than complicated technical dashboards.
+
+The primary question the website should answer is:
+
+**“What is happening near my farm, how could it affect my crops, and what should I do now?”**
+
+## 3. Core Principles
+
+Follow these rules throughout development:
+
+- Never fabricate live weather, satellite imagery, flood forecasts, SMS delivery, or AI results.
+- Clearly distinguish forecasts, observed flooding, estimated farm exposure, and confirmed crop damage.
+- Show data source, observation time, update time, limitations, and uncertainty wherever relevant.
+- Do not claim that a farm will definitely flood unless an authoritative source explicitly establishes that fact.
+- Do not claim that flood overlap proves crop loss.
+- Use simple language that farmers can understand.
+- Design for mobile browsers, desktop browsers, and low-bandwidth environments.
+- Ask for only the personal information required for the selected features.
+- Obtain explicit consent before sending SMS alerts.
+- Do not expose farmers' phone numbers, farm boundaries, or uploaded photographs publicly.
+- Clearly label simulated data and demo results.
+- Do not replace working functionality with static screenshots or fake AI outputs.
+
+## 4. Target Users
+
+Primary users are Indian farmers, particularly those in flood-prone agricultural regions.
+
+Secondary users include agricultural advisers, local support organisations, and project administrators.
+
+The interface must be usable by people with limited technical experience.
+
+## 5. Required Technology Stack
+
+Use this stack unless a documented technical limitation requires an alternative.
+
+### Frontend
+
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- React Router
+- React Leaflet for interactive maps
+- A suitable mapping provider for optional 3D terrain and satellite imagery
+- i18next and react-i18next for language support
+- A reusable, accessible component system
+
+### Backend
+
+- Python
+- FastAPI
+- Pydantic for input validation
+- SQLAlchemy or an equivalent maintainable database layer
+
+### Geospatial analysis
+
+- GeoPandas
+- Shapely
+- GeoJSON
+- A suitable projected coordinate reference system for area calculations
+
+### Database
+
+Use SQLite for the initial prototype. Structure the application so PostgreSQL with PostGIS can be introduced when needed.
+
+### Testing
+
+- Vitest and React Testing Library for frontend tests
+- Pytest for backend tests
+- Geospatial tests for farm area and flood-overlap calculations
+
+Use compatible, maintained dependency versions. Avoid unnecessary libraries.
+
+## 6. Website Pages
+
+Build these pages:
+
+1. Home
+2. Register Your Farm
+3. Farm Dashboard
+4. Weather and Flood Warnings
+5. Flood Map and Observations
+6. Crop Protection Planner
+7. During-Flood Safety
+8. Post-Flood Recovery
+9. Crop Photo Assessment
+10. Farm Reports
+11. Language and Alert Settings
+12. About, Data Sources and Limitations
+
+The homepage should explain the service simply and provide a prominent action: **Register Your Farm**.
+
+## 7. Farmer Registration and Farm Profile
+
+Create an easy, step-by-step registration workflow.
+
+Collect the following information where required:
+
+- Farmer's preferred display name, if needed.
+- Mobile phone number for optional SMS alerts.
+- Selected language.
+- State and district.
+- Village or farm address.
+- Farm location on a map.
+- Farm boundary polygon.
+- Crop type.
+- Planting date, if known.
+- Current crop growth stage.
+- Farm area and preferred land measurement unit.
+
+Allow farmers to correct their information.
+
+Do not require a crop photograph to register a farm.
+
+Provide clear privacy information and separate consent for SMS alerts.
+
+Support multiple farms per farmer when practical.
+
+Do not collect government identity documents unless a later, clearly justified requirement is approved.
+
+## 8. Interactive Farm Map and 3D View
+
+Build a useful interactive map.
+
+Required capabilities:
+
+- Search for a village, address, or location.
+- Show satellite imagery where a supported provider is available.
+- Allow farmers to place a marker and draw or edit their farm boundary.
+- Display the selected farm boundary.
+- Calculate the farm's area.
+- Let farmers confirm the boundary before saving it.
+- Display weather and available flood information for the selected location.
+- Show flood-extent overlays when real or documented historical data is available.
+
+Offer a 3D terrain or map view if the chosen provider supports it.
+
+Do not claim that every field can be viewed in 3D. Provide a normal 2D map fallback.
+
+Use a provider that permits the intended usage. Respect API keys, quotas, attribution requirements, and licensing.
+
+Never infer an exact farm boundary from a postal address alone.
+
+## 9. Regional Language System
+
+Build a central translation system that can support India's major regional languages.
+
+Initially implement and test:
+
+- Hindi
+- Punjabi
+- English
+
+Design the translation architecture so additional languages can be added without rewriting page components.
+
+Plan a phased expansion to the 22 scheduled Indian languages and additional regional languages where useful.
+
+Requirements:
+
+- Add a visible language selector.
+- Let farmers change languages at any time.
+- Translate menus, buttons, forms, validation messages, dashboard labels, crop guidance, safety instructions, and alerts.
+- Store the selected language in the farmer's preferences.
+- Use appropriate Unicode-compatible fonts.
+- Avoid mixing languages unnecessarily.
+- Provide human-reviewed translations for safety-critical instructions.
+- Never depend entirely on unreviewed machine translation for emergency warnings.
+- Provide a sensible fallback when a translation is unavailable.
+
+Use translation keys rather than hardcoding user-facing strings throughout the application.
+
+Suggested translation files:
+
+- `en.json`
+- `hi.json`
+- `pa.json`
+
+Add additional language files as the project expands.
+
+## 10. Indian State-Based Land Measurement System
+
+Allow farmers to enter their farm size in units they commonly use.
+
+Support standard units:
+
+- Square metres
+- Hectares
+- Acres
+
+Design regional unit support for units such as:
+
+- Bigha and biswa
+- Kanal and marla
+- Kattha and dhur
+- Nali
+- Vigha or other locally used units
+- Decimal and guntha
+
+Display only appropriate local options based on the farmer's state and, where necessary, district.
+
+IMPORTANT: Do not assume that a unit has the same size throughout India. Bigha, biswa, kattha, and similar units can vary by region.
+
+Create a configurable regional conversion table with:
+
+- State
+- District or local region, where required
+- Unit name
+- Unit definition
+- Conversion factor to square metres
+- Source of the conversion
+- Verification status
+- Effective date or version, if applicable
+
+Do not invent conversion factors. Use verified sources and flag any unverified definition.
+
+If the local conversion is uncertain, ask the farmer to confirm the local definition or enter the farm boundary on the map.
+
+Use the mapped farm polygon as the primary source for geospatial area calculations whenever possible.
+
+Show both the original measurement and the converted area.
+
+Use a suitable projected coordinate system for area calculations. Do not calculate farm area by treating latitude and longitude as ordinary Cartesian coordinates.
+
+Test conversions and rounding carefully.
+
+## 11. Weather Dashboard
+
+Integrate a suitable weather data provider when credentials and permissions are available.
+
+Display supported information such as:
+
+- Current weather conditions.
+- Temperature.
+- Rainfall observations and forecasts.
+- Forecast precipitation.
+- Severe-weather warnings.
+- Forecast horizon.
+- Time of last update.
+- Provider and source links.
+
+Support a range of forecast periods according to the data provider's actual capabilities.
+
+Do not show seven-day or hourly predictions if the selected provider does not supply them.
+
+Show a clear empty state when data cannot be retrieved.
+
+Do not silently substitute invented weather values.
+
+## 12. Flood Forecasting and Risk Assessment
+
+Use verified and available information from relevant official sources, including appropriate weather and flood-warning authorities.
+
+Potential inputs include:
+
+- Official flood alerts.
+- River gauge observations and forecasts.
+- Rainfall forecasts.
+- Historical flood observations.
+- Terrain and elevation data.
+- Drainage and river-network information.
+- Farm location and elevation, where reliable.
+
+Build the risk assessment in stages.
+
+First, display verified official warnings relevant to the farm.
+
+Second, incorporate additional variables only when the data is available, suitable, and technically justified.
+
+Third, develop a transparent risk assessment with documented assumptions and tests.
+
+For every warning or assessment, display:
+
+- Risk or warning category.
+- Relevant location.
+- Expected threat period, if supplied.
+- Source.
+- Last update.
+- Reason for the warning.
+- Limitations and uncertainty.
+
+Do not claim to predict precise flood timing or water depth unless a validated data source or model supports it.
+
+Do not present a heuristic score as a scientifically validated probability.
+
+If no reliable forecast is available, say so and provide any relevant official regional warnings.
+
+## 13. Flood Early-Warning and SMS System
+
+Allow farmers to enter their own mobile phone number.
+
+Implement the following workflow:
+
+1. Enter the phone number.
+2. Validate its format.
+3. Verify ownership using an OTP or another appropriate verification method.
+4. Explain what alerts the farmer will receive.
+5. Obtain and record explicit consent.
+6. Allow the farmer to select alert language and preferences.
+7. Allow the farmer to update the number or opt out.
+8. Trigger messages only from supported warning rules and verified information.
+9. Record alert status without exposing private data.
+10. Handle delivery failures and provider errors.
+
+Use an SMS provider with appropriate support for Indian numbers and relevant languages.
+
+Keep provider credentials on the backend in environment variables or a secure secret store.
+
+Never place SMS provider credentials in frontend code.
+
+Example message structure:
+
+“Flood warning for your area. Check the latest official update. Protect seeds and stored produce in a safe, elevated place. Do not enter floodwater. Source: [official source]. Updated: [time].”
+
+Translate the message into the farmer's selected language.
+
+Do not send real messages during development unless explicitly configured and authorised.
+
+Clearly label test messages and provide a safe testing mode.
+
+SMS delivery may incur costs and must be treated as an external integration.
+
+## 14. Before-Flood Crop Protection Planner
+
+Create a personalised action planner using:
+
+- Crop type.
+- Crop growth stage.
+- Farm location.
+- Available official warnings.
+- Estimated time before a possible threat.
+- Farmer-provided constraints where relevant.
+
+Provide practical, conditional advice, such as:
+
+- Check updated official warnings.
+- Move seeds, fertilisers, machinery, and harvested produce to safe storage where possible.
+- Inspect existing drainage and clear it only when safe and permitted.
+- Consider harvesting mature crops early when agronomically appropriate and safe.
+- Prepare for the safe movement of livestock.
+- Protect essential farm records and supplies.
+
+Do not recommend dangerous actions such as entering rising floodwater, attempting unsafe river crossings, or approaching damaged electrical infrastructure.
+
+Use reviewed agricultural guidance rather than generating unsupported pesticide, fertiliser, or crop-treatment instructions.
+
+Allow farmers to mark checklist tasks as completed.
+
+Explain that completing the checklist cannot guarantee that a crop will be saved.
+
+## 15. During-Flood Safety Assistance
+
+Create a dedicated safety page.
+
+Include:
+
+- Follow official evacuation and emergency instructions.
+- Stay away from floodwater and rapidly flowing water.
+- Do not enter flooded fields to rescue crops or equipment.
+- Keep people and livestock away from dangerous areas where possible.
+- Avoid downed electrical lines and damaged infrastructure.
+- Use verified local emergency contact information where available.
+- Display the last update time of emergency information.
+
+Make essential safety instructions available offline after they have been downloaded.
+
+Never imply that the website can replace emergency services or official instructions.
+
+## 16. Satellite-Based Flood Detection
+
+Create a modular flood-mapping pipeline.
+
+Potential sources include suitable Sentinel-1 radar observations and other appropriately licensed satellite or flood-extent datasets.
+
+Before integration, verify:
+
+- API availability.
+- Access and authentication requirements.
+- Data coverage.
+- Observation dates.
+- Resolution and coordinate reference system.
+- Processing requirements.
+- Licensing and attribution.
+
+The pipeline should:
+
+1. Retrieve suitable observations or documented flood-extent datasets.
+2. Validate the data and its metadata.
+3. Process or ingest flood-extent geometry.
+4. Store the observation date and source.
+5. Display the mapped flood extent.
+6. Compare it with the saved farm boundary.
+7. Report the result with uncertainty and limitations.
+
+Sentinel-1 can provide useful radar observations through many cloud conditions, but satellite acquisition and processing delays mean the data is not necessarily live.
+
+Distinguish:
+
+- Forecast flooding.
+- Satellite-observed or externally mapped flooding.
+- Estimated overlap with a farm.
+- Confirmed crop damage.
+
+Do not present historical observations or synthetic geometry as current flooding.
+
+If only demo data is available, label it clearly as historical or simulated.
+
+## 17. Farm-Area Overlap Calculations
+
+Use validated geospatial calculations.
+
+For each farm, calculate:
+
+- Total mapped farm area.
+- Area overlapping the flood-extent geometry.
+- Estimated percentage of farm area overlapping the flood extent.
+
+Use an appropriate projected coordinate system and validate the geometries before calculations.
+
+Formula:
+
+Affected overlap percentage = intersection area / total farm area × 100
+
+Explain that the result estimates the portion of the mapped farm inside the observed or supplied flood extent.
+
+It does not automatically establish crop destruction, yield reduction, financial loss, or insurance eligibility.
+
+Display the observation date, source, data limitations, and units.
+
+Test edge cases, including:
+
+- No overlap.
+- Full overlap.
+- Partial overlap.
+- Invalid polygons.
+- Empty geometries.
+- Different coordinate reference systems.
+- Farms outside available data coverage.
+
+## 18. AI Crop Photo Assessment
+
+Allow farmers to optionally upload crop photos.
+
+Requirements:
+
+- Explain what the feature can and cannot assess.
+- Validate file type and file size.
+- Reject unsupported or dangerous file types.
+- Protect uploads and apply a retention policy.
+- Request permission before retaining or sharing images.
+- Display a preliminary assessment, not a guaranteed diagnosis.
+- Describe visible symptoms in plain language.
+- Recommend safe inspection and expert consultation when appropriate.
+- Avoid claiming that a photo proves the condition of an entire farm.
+- Provide useful fallback advice if an AI service is unavailable.
+
+Integrate an actual vision model only when an appropriate provider, model, and credentials are configured.
+
+Never fabricate model confidence, diagnoses, or analysis results.
+
+## 19. Post-Flood Recovery Support
+
+Create a recovery workflow that activates after a flood or when the farmer requests it.
+
+Include:
+
+- Instructions for checking fields only when safe.
+- Guidance for recording visible crop symptoms.
+- Advice on documenting the affected area and date.
+- Crop-specific recovery recommendations based on reviewed sources.
+- Suggestions to consult agricultural experts before major treatment or replanting decisions.
+- Links to verified local agricultural extension services where available.
+- A record of the farm's reported observations and photographs.
+
+Allow the farmer to prepare a report containing relevant farm information, flood observation details, mapped overlap, and uploaded documentation where permitted.
+
+Do not automatically equate overlap percentage with crop loss.
+
+## 20. Farm Action Planner
+
+Build a central action checklist that combines available information from the farm profile, crop stage, warnings, and guidance.
+
+Show:
+
+- What the farmer should check now.
+- What preparations may be appropriate.
+- What to do if a flood is occurring.
+- What to inspect after water recedes.
+- Which tasks the farmer has completed.
+- When the information was last updated.
+
+Use conditional advice rather than assuming all farmers face the same conditions.
+
+Never hide uncertainty behind an AI-generated summary.
+
+## 21. Additional Planned Features
+
+Structure the code to support these features, but prioritise the core product first:
+
+- Voice input and spoken guidance in supported languages.
+- Low-bandwidth operation and offline access to saved instructions.
+- Community flood reports with clear verification status.
+- Crop calendar and planting/harvest reminders.
+- Farm history and previous reports.
+- Official relief and insurance information.
+- Administrative monitoring for data-source failures and SMS errors.
+
+Do not implement these as empty buttons. Either implement working functionality or label them as coming soon.
+
+## 22. Dashboard Design
+
+The farm dashboard should present information in this order:
+
+1. Selected farm and crop.
+2. Latest relevant official warnings.
+3. Weather near the farm.
+4. Flood-risk explanation, when supported.
+5. Recommended actions.
+6. Latest available flood observations.
+7. Estimated farm-area overlap, when available.
+8. Crop guidance and recovery options.
+9. Recent alerts and update timestamps.
+
+Use clear status labels and restrained colours.
+
+Do not rely on colour alone to communicate risk.
+
+Ensure text is readable, maps have useful controls, and the website works on smaller screens.
+
+## 23. Data Sources and Transparency
+
+Maintain a documented registry of integrated data providers.
+
+Potential sources to evaluate include:
+
+- India Meteorological Department for suitable weather warnings and forecasts.
+- Central Water Commission for relevant river and flood information.
+- ISRO/Bhuvan for suitable geospatial datasets.
+- Copernicus Data Space for Sentinel imagery.
+- NASA Earthdata for appropriate Earth-observation products.
+- OpenStreetMap or a licensed mapping provider for map data.
+
+These are candidates for evaluation, not a guarantee that a specific API, dataset, or service will meet every project requirement.
+
+For each integration, document:
+
+- Source and official URL.
+- Data type.
+- Geographic coverage.
+- Update frequency.
+- Access requirements.
+- Licensing and attribution.
+- Known limitations.
+
+Provide a Data Sources page for users.
+
+## 24. Backend API Design
+
+Create clean, validated endpoints where appropriate, for example:
+
+- `POST /api/farms`
+- `GET /api/farms/{farm_id}`
+- `PATCH /api/farms/{farm_id}`
+- `POST /api/farms/{farm_id}/boundary`
+- `GET /api/farms/{farm_id}/weather`
+- `GET /api/farms/{farm_id}/warnings`
+- `GET /api/farms/{farm_id}/flood-observations`
+- `POST /api/farms/{farm_id}/overlap-analysis`
+- `GET /api/farms/{farm_id}/crop-guidance`
+- `POST /api/farms/{farm_id}/crop-photos`
+- `GET /api/farms/{farm_id}/reports`
+- `PATCH /api/users/{user_id}/preferences`
+- `POST /api/alerts/subscribe`
+- `POST /api/alerts/unsubscribe`
+
+Adjust endpoint design where needed for authentication, ownership, and secure access.
+
+Do not expose private farm records through predictable, unauthorised identifiers.
+
+Validate all inputs and handle errors consistently.
+
+## 25. Security and Privacy
+
+Implement:
+
+- Server-side input validation.
+- Secure authentication if accounts are enabled.
+- Authorisation checks for private farm records.
+- Environment variables for secrets.
+- Rate limiting for sensitive endpoints.
+- Safe file upload handling.
+- Appropriate CORS configuration.
+- Protection against common web vulnerabilities.
+- Explicit SMS consent and opt-out handling.
+- Minimal retention of personal information.
+- Appropriate error logging without sensitive data.
+
+Do not log phone numbers, OTPs, credentials, or private uploaded content unnecessarily.
+
+Do not publish precise farm boundaries or farmer phone numbers.
+
+## 26. Testing Requirements
+
+Write automated tests for:
+
+- Farm registration and validation.
+- Language switching.
+- Land-unit conversion.
+- Farm boundary creation and editing.
+- Geospatial area calculations.
+- Flood overlap calculations.
+- Missing and stale data.
+- Warning generation rules.
+- SMS consent and opt-out logic.
+- API error handling.
+- Photo upload validation.
+- Authentication and authorisation where implemented.
+
+Include realistic test cases and synthetic fixtures.
+
+Never use fabricated test data in a way that makes it appear to be live environmental information.
+
+## 27. Deployment and Documentation
+
+Provide:
+
+- Complete source code.
+- A clear project directory structure.
+- Frontend and backend setup instructions.
+- `.env.example` with placeholder names only.
+- Database setup and migration instructions where applicable.
+- Data-source integration documentation.
+- Translation guidelines.
+- Regional land-unit conversion documentation.
+- Testing instructions.
+- Deployment instructions.
+- A list of implemented, partially implemented, and planned features.
+- Known limitations and future improvements.
+
+The website should be deployable using suitable hosting services. Keep deployment configuration separate from application logic.
+
+Do not commit real credentials or API keys.
+
+## 28. Development Phases
+
+Work in the following order.
+
+### Phase 1 — Foundation
+
+- Inspect requirements and propose architecture.
+- Create the frontend and backend project structure.
+- Build the shared layout, routing, and responsive home page.
+- Implement English, Hindi, and Punjabi translation infrastructure.
+- Set up configuration and testing.
+
+### Phase 2 — Farm Registration
+
+- Build the registration workflow.
+- Add state, district, crop, and farm-area fields.
+- Integrate interactive farm boundary drawing.
+- Implement and test verified land-unit conversions.
+- Save farm records securely.
+
+### Phase 3 — Weather and Guidance
+
+- Integrate an available weather provider.
+- Add source and update information.
+- Build the crop action planner.
+- Add reviewed before-, during-, and after-flood instructions.
+
+### Phase 4 — Flood Warnings and SMS
+
+- Integrate suitable official warning sources.
+- Implement warning relevance rules.
+- Add verified phone registration and consent.
+- Integrate an SMS provider only when credentials and configuration are available.
+- Test using a safe, non-sending development mode.
+
+### Phase 5 — Flood Mapping
+
+- Integrate suitable historical or current flood-extent datasets.
+- Build geospatial validation and overlap calculations.
+- Add flood-map overlays and transparent reporting.
+- Label historical and simulated data correctly.
+
+### Phase 6 — Recovery and Advanced Features
+
+- Add optional crop photo assessment.
+- Build recovery reports.
+- Expand regional translations.
+- Add low-bandwidth support and other planned features as time permits.
+
+### Phase 7 — Quality and Release
+
+- Test the full farmer workflow.
+- Fix security, usability, and reliability issues.
+- Verify data sources and licensing.
+- Document limitations.
+- Prepare the final demonstration.
+
+## 29. Required Workflow for the Coding Agent
+
+Before writing code:
+
+1. Inspect the existing repository and all available project documents.
+2. Identify what already exists and what is missing.
+3. Summarise the proposed architecture and dependencies.
+4. Identify which integrations need API keys or external access.
+5. Identify which data sources are actually accessible.
+6. Separate core features from future enhancements.
+7. Present a concise implementation plan.
+
+Then implement the project in small, testable phases.
+
+For each phase:
+
+1. Explain what you will build.
+2. Implement the feature.
+3. Run the relevant tests.
+4. Fix errors and regressions.
+5. Update documentation.
+6. Report what works, what remains incomplete, and what needs external configuration.
+
+Do not silently skip requirements. If a feature cannot be implemented reliably, explain the limitation and build a clear, honest fallback.
+
+**Begin with Phase 1 only.** Do not attempt to implement every advanced feature in one step. First establish a clean, running website architecture, and then proceed through the phases in order.
+
+## 30. Final Acceptance Criteria
+
+The core website is acceptable when a farmer can:
+
+1. Open the website on a phone or computer.
+2. Select English, Hindi, or Punjabi.
+3. Register a farm and mark its boundary on the map.
+4. Enter crop details and a familiar land measurement unit.
+5. See an accurate calculated farm area.
+6. View available weather information and relevant warnings with sources and timestamps.
+7. Read practical, understandable crop-protection guidance.
+8. Register a phone number and explicitly consent to SMS alerts.
+9. Receive real SMS alerts when the system is correctly configured and a verified trigger occurs.
+10. View documented flood extent and farm-overlap calculations when suitable data is available.
+11. Access post-flood recovery guidance and prepare a farm report.
+
+Advanced features may follow in later releases, but they must be documented accurately.
+
+The final result should be a useful, trustworthy agricultural website that helps farmers make better-informed decisions before, during, and after floods—not simply a visually impressive demo.

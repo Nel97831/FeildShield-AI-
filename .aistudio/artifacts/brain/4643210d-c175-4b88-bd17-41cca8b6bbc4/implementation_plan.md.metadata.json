@@ -1,0 +1,6 @@
+{
+  "summary":  "Implementation plan for FieldShield AI:\n1. Crop insurance choice at the end of farm registration with opt-in/opt-out.\n2. AI-powered crop insurance claim estimator with instant payout assessment and comprehensive fallback recovery solutions when uninsured.\n3. Vibrant color scheme for the Crop Planner & Tasks page.\n4. Single unified 'Register Your Farm' call-to-action on the Home page.\n5. Real multimodal Gemini crop photo inspection eliminating static results and removing reference photo selection.\n6. Real OTP and satellite disaster alert transmission to registered farmer mobile numbers.",
+  "updatedAt":  "2026-10-31T22:44:05.639022394Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}
